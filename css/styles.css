@@ -101,7 +101,7 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
   content:"";
   position:absolute;
   inset:0;
-  background-image: url("/img/hero.jpg");
+  background-image: var(--hero-image, url("/img/hero.jpg"));
   background-size: cover;
   background-position: center;
   filter: saturate(.92) contrast(1.05);
@@ -143,6 +143,30 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
   margin:0;
   opacity:.92;
 }
+
+/* Page-specific hero images */
+.hero--about{
+  --hero-image: url("/img/about.jpg");
+}
+
+.hero--careers{
+  --hero-image: url("/img/careers.jpg");
+}
+
+/* Clean paragraph styling inside hero */
+.hero .lead{
+  margin: 16px auto 0;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.75;
+  background: rgba(0,0,0,.22);
+  border: 1px solid rgba(233,228,214,.12);
+  border-radius: 16px;
+  padding: 14px 18px;
+  backdrop-filter: blur(4px);
+}
+
 
 .bottom-strip{
   position:absolute;
