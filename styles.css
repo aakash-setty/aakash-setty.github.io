@@ -108,6 +108,17 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
   transform: scale(1.02);
 }
 
+/* Page-specific hero backgrounds */
+.hero.hero--about::before{
+  background-image: url("/img/about.jpg");
+}
+
+.hero.hero--careers::before{
+  background-image: url("/img/careers.jpg");
+}
+
+
+
 .hero::after{
   content:"";
   position:absolute;
