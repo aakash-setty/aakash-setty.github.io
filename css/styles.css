@@ -101,7 +101,7 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
   content:"";
   position:absolute;
   inset:0;
-  background-image: url("./assets/img/hero.jpg");
+  background-image: url("./img/hero.jpg");
   background-size: cover;
   background-position: center;
   filter: saturate(.92) contrast(1.05);
