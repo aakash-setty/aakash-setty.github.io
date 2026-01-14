@@ -7,20 +7,36 @@
   --line: rgba(233,228,214,.22);
   --shadow: 0 20px 60px rgba(0,0,0,.45);
   --max: 1120px;
+  --content: 860px; /* readable text width */
 }
 
 *{box-sizing:border-box}
-html,body{height:100%}
+
+/* Background that scales with page height (no fixed attachment) */
+html{
+  min-height: 100%;
+  background:
+    radial-gradient(1200px 900px at 30% 10%, #1b3a33 0%, rgba(15,32,28,0) 60%),
+    radial-gradient(1000px 700px at 70% 35%, rgba(168,155,100,.10) 0%, rgba(15,32,28,0) 55%),
+    linear-gradient(to bottom, #0b1714 0%, #0f201c 35%, #0a1512 100%);
+  background-repeat: no-repeat;
+}
+
 body{
   margin:0;
-  background: radial-gradient(1200px 700px at 30% 10%, #1b3a33 0%, var(--bg) 65%);
+  min-height: 100%;
+  background: transparent; /* let html background show through */
   color:var(--text);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   letter-spacing: .01em;
 }
 
 a{color:inherit; text-decoration:none}
-a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); outline-offset: 3px; border-radius: 8px}
+a:focus-visible, button:focus-visible{
+  outline:2px solid rgba(168,155,100,.8);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
 
 .site{
   min-height:100vh;
@@ -97,11 +113,12 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
   overflow:hidden;
 }
 
+/* Default hero background (home) */
 .hero::before{
   content:"";
   position:absolute;
   inset:0;
-  background-image: url("./assets/img/hero.jpg");
+  background-image: url("./img/hero.jpg"); /* <-- changed from ./assets/img/hero.jpg */
   background-size: cover;
   background-position: center;
   filter: saturate(.92) contrast(1.05);
@@ -110,14 +127,12 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
 
 /* Page-specific hero backgrounds */
 .hero.hero--about::before{
-  background-image: url("/img/about.jpg");
+  background-image: url("./img/about.jpg");
 }
 
 .hero.hero--careers::before{
-  background-image: url("/img/careers.jpg");
+  background-image: url("./img/careers.jpg");
 }
-
-
 
 .hero::after{
   content:"";
@@ -193,12 +208,20 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
 .strip-center{justify-self:center}
 .strip-right{justify-self:end}
 
+/* Standard page section */
 .page{
   padding: 120px 26px 80px;
 }
 
+/* Readable default container for paragraphs */
 .page .container{
-  max-width: 860px;
+  max-width: var(--content);
+  margin: 0 auto;
+}
+
+/* Wider container option for layout-heavy sections (bios, grids) */
+.page .container--wide{
+  max-width: var(--max);
   margin: 0 auto;
 }
 
@@ -226,6 +249,67 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
   box-shadow: var(--shadow);
 }
 
+.section-title{
+  margin: 26px 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: var(--text);
+  opacity: .95;
+}
+
+/* Team bios section (wider on desktop) */
+.bio-grid{
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+/* Bio cards take advantage of the wider container */
+.bio-card{
+  display: grid;
+  grid-template-columns: 108px 1fr;
+  gap: 16px;
+  align-items: start;
+  background: rgba(18,38,34,.55);
+  border: 1px solid rgba(233,228,214,.12);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.bio-photo{
+  width: 108px;
+  height: 108px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(233,228,214,.18);
+}
+
+.bio-name{
+  margin: 0 0 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.bio-text{
+  margin: 0 0 10px;
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 14.5px;
+}
+
+.bio-text:last-child{
+  margin-bottom: 0;
+}
+
 @keyframes fadeIn{
   from{opacity:0; transform: translateY(6px)}
   to{opacity:1; transform: translateY(0)}
@@ -245,14 +329,14 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
   }
 
   .brand img{ width: 38px; height: 38px; }
-  .brand span{ display:none; } /* optional: hide "Avella" text to save space */
+  .brand span{ display:none; }
 
   .menu{
     gap: 10px;
     font-size: 10px;
     letter-spacing: .10em;
-    white-space: nowrap;     /* keep on one line */
-    flex-wrap: nowrap;       /* do not wrap by default */
+    white-space: nowrap;
+    flex-wrap: nowrap;
   }
 
   .menu a{
@@ -262,6 +346,19 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
   .menu a::after{
     bottom: 0px;
     height: 2px;
+  }
+
+  .bio-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .bio-card{
+    grid-template-columns: 92px 1fr;
+  }
+
+  .bio-photo{
+    width: 92px;
+    height: 92px;
   }
 }
 
@@ -280,7 +377,7 @@ a:focus-visible, button:focus-visible{outline:2px solid rgba(168,155,100,.8); ou
 /* Absolute smallest widths: allow wrap as a last resort */
 @media (max-width: 360px){
   .menu{
-    white-space: normal;   /* allow wrap */
+    white-space: normal;
     flex-wrap: wrap;
     justify-content: flex-end;
     row-gap: 2px;
